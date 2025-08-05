@@ -803,111 +803,14 @@
                     <!-- TITLE END-->
                     <div class="section-content">
                         <div class="pricingtable-row">
-                            <div class="row d-flex justify-content-center">
-
-                                <!-- Plan 1: Standard AROC -->
-                                <div class="col-lg-4 col-md-6 col-sm-12 m-b30">
-                                    <div class="pricingtable-wrapper bg-white">
-                                        <div class="pricingtable-inner">
-                                            <div class="pricing-table-top-section">
-                                                <div class="pricingtable-title">
-                                                    <h2 class="title-style-2">Standard AROC</h2>
-                                                </div>
-                                                <div class="pricingtable-price">
-                                                    <h2 class="pricingtable-bx">$495</h2>
-                                                    <p><del>$595</del> save $100</p>
-                                                </div>
-                                                <div class="pricingtable-description" style="margin-top: 15px;">
-                                                    <p>Perfect for Beginners<br>Complete in 2 Days</p>
-                                                </div>
-                                            </div>
-                                            <ul class="pricingtable-features">
-                                                <li>✓ AROC + ELP Assessment</li>
-                                                <li>✓ 1-Year Simulator Access</li>
-                                                <li>✓ CASA Fee Included</li>
-                                                <li>✓ Digital Certificate</li>
-                                                <li>✓ Study Materials Included</li>
-                                                <li>✓ Expert Instructor Support</li>
-                                            </ul>
-                                            <div class="pricingtable-footer">
-                                                <a href="course-details.html?package=standard"
-                                                    class="site-button site-btn-effect">Buy
-                                                    Standard</a>
-
-                                            </div>
-                                        </div>
+                            <div class="row d-flex justify-content-center" id="packages-container">
+                                <!-- Loading placeholder - will be replaced by API data -->
+                                <div class="col-12 text-center">
+                                    <div class="loading-spinner">
+                                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                                        <p>Loading packages...</p>
                                     </div>
                                 </div>
-
-                                <!-- Plan 2: Express AROC (Most Popular) -->
-                                <div class="col-lg-4 col-md-6 col-sm-12 m-b30">
-                                    <div class="pricingtable-wrapper">
-                                        <div class="pricingtable-inner pricingtable-highlight">
-
-                                            <div class="pricing-table-top-section">
-                                                <div class="pricingtable-title">
-                                                    <h2 class="title-style-2">EXPRESS AROC</h2>
-                                                </div>
-                                                <div class="pricingtable-price">
-                                                    <h2 class="pricingtable-bx">$595</h2>
-                                                    <p><del>$695</del> save $100</p>
-                                                </div>
-                                                <div class="pricingtable-description" style="margin-top: 15px;">
-                                                    <p>Most Popular Choice<br>Complete in 2 Days</p>
-                                                </div>
-                                            </div>
-                                            <ul class="pricingtable-features">
-                                                <li>✓ XPRESS AROC + ELP</li>
-                                                <li>✓ 3-Year Simulator Access</li>
-                                                <li>✓ Priority Scheduling</li>
-                                                <li>✓ FREE Refresher Training</li>
-                                                <li>✓ Express Certification</li>
-                                                <li>✓ 24/7 Support Access</li>
-                                            </ul>
-                                            <div class="pricingtable-footer">
-                                                <a href="course-details.html?package=express"
-                                                    class="site-button site-btn-effect">Buy
-                                                    Express</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Plan 3: Advanced AROC -->
-                                <div class="col-lg-4 col-md-6 col-sm-12 m-b30">
-                                    <div class="pricingtable-wrapper bg-white">
-                                        <div class="pricingtable-inner">
-                                            <div class="pricing-table-top-section">
-                                                <div class="pricingtable-title">
-                                                    <h2 class="title-style-2">Advanced AROC</h2>
-                                                </div>
-                                                <div class="pricingtable-price">
-                                                    <h2 class="pricingtable-bx">$795</h2>
-                                                    <p><del>$895</del> save $100</p>
-                                                </div>
-                                                <div class="pricingtable-description" style="margin-top: 15px;">
-                                                    <p>Complete Professional Package<br>Complete in 2 Days</p>
-                                                </div>
-                                            </div>
-                                            <ul class="pricingtable-features">
-                                                <li>✓ AROC + ELP + Skill Certificate</li>
-                                                <li>✓ 5-Year Simulator Access</li>
-                                                <li>✓ One-on-One Mentoring</li>
-                                                <li>✓ Lifetime Refresher Access</li>
-                                                <li>✓ Career Support Package</li>
-                                                <li>✓ Premium Certification</li>
-                                            </ul>
-                                            <div class="pricingtable-footer">
-                                                <a href="course-details.html?package=advanced"
-                                                    class="site-button site-btn-effect">Buy
-                                                    Premium</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -1405,6 +1308,56 @@
     <!-- REVOLUTION SLIDER SCRIPT FILES -->
     <script src="js/rev-script-2.js"></script>
 
+    <script src="js/api-service.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const container = document.getElementById('packages-container');
+            container.innerHTML = ''; // Clear loading spinner
+
+            const packages = await window.arocAPI.getAllPackages();
+
+            if (!packages.length) {
+                container.innerHTML = '<div class="col-12 text-center"><p>No packages available at this time.</p></div>';
+                return;
+            }
+
+            packages.forEach(pkg => {
+                const priceInfo = window.arocAPI.formatPriceDisplay(pkg);
+                const features = window.arocAPI.formatFeatures(pkg.features);
+
+                const isPopular = pkg.popular ? 'pricingtable-highlight' : '';
+                const buyLabel = pkg.title.toLowerCase().includes('express') ? 'Express' : (pkg.title.toLowerCase().includes('advanced') ? 'Premium' : 'Standard');
+
+                const html = `
+                    <div class="col-lg-4 col-md-6 col-sm-12 m-b30">
+                        <div class="pricingtable-wrapper ${pkg.popular ? '' : 'bg-white'}">
+                            <div class="pricingtable-inner ${isPopular}">
+                                <div class="pricing-table-top-section">
+                                    <div class="pricingtable-title">
+                                        <h2 class="title-style-2">${pkg.title}</h2>
+                                    </div>
+                                    <div class="pricingtable-price">
+                                        <h2 class="pricingtable-bx">${priceInfo.currentPrice}</h2>
+                                        ${priceInfo.hasDiscount ? `<p><del>${priceInfo.originalPrice}</del> ${priceInfo.savings}</p>` : ''}
+                                    </div>
+                                    <div class="pricingtable-description" style="margin-top: 15px;">
+                                        <p>${pkg.description}<br>Complete in ${pkg.duration}</p>
+                                    </div>
+                                </div>
+                                <ul class="pricingtable-features">
+                                    ${features.map(f => `<li>${f}</li>`).join('')}
+                                </ul>
+                                <div class="pricingtable-footer">
+                                    <a href="course-details.html?package=${pkg.id}" class="site-button site-btn-effect">Buy ${buyLabel}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        });
+    </script>
 
 </body>
 

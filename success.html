@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="description" content="" />
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="images/favicon.png" type="image/x-icon+png" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+
+    <!-- PAGE TITLE HERE -->
+    <title>AROC | Order Success</title>
+
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <!-- FONTAWESOME STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/fontawesome/css/font-awesome.min.css" />
+
+    <!-- OWL CAROUSEL STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+
+    <!-- SLICK SLIDER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+    <!-- BOOTSTRAP SLECT BOX STYLE SHEET  -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <!-- MAGNIFIC POPUP STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/magnific-popup.min.css">
+    <!-- LOADER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/loader.min.css">
+    <!-- MAIN STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- FLATICON STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/flaticon.min.css">
+    <!-- THEME COLOR CHANGE STYLE SHEET -->
+    <link rel="stylesheet" class="skin" type="text/css" href="css/skin/skin-1.css">
+    <!-- SIDE SWITCHER STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href="css/switcher.css">
+
+
+    <!-- REVOLUTION SLIDER CSS -->
+    <link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/settings.css">
+    <!-- REVOLUTION NAVIGATION STYLE -->
+    <link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/navigation.css">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        .success-hero {
+            background: linear-gradient(135deg, #d72323 0%, #1a1a1a 100%);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/background/bg-1.jpg') center/cover;
+            opacity: 0.1;
+        }
+
+        .success-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-icon i {
+            font-size: 60px;
+            color: #28a745;
+        }
+
+        .order-details-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        .order-header {
+            border-bottom: 2px solid #f8f9fa;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .order-id {
+            background: #d72323;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .package-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .price-tag {
+            background: #d72323;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .features-list li:before {
+            content: '\f00c';
+            font-family: 'FontAwesome';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .customer-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .info-value {
+            color: #666;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .next-steps {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+
+        .next-steps h4 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .next-steps ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .next-steps li {
+            margin-bottom: 8px;
+            color: #2d5a2d;
+        }
+
+        @media (max-width: 768px) {
+            .success-hero {
+                padding: 80px 0 60px;
+            }
+
+            .order-details-card {
+                padding: 25px;
+                margin-top: 30px;
+            }
+
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .info-value {
+                margin-top: 5px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page-wraper">
+
+        <!-- HEADER START -->
+        <header class="site-header header-style-4 mobile-sider-drawer-menu">
+
+            <div class="sticky-header main-bar-wraper  navbar-expand-lg">
+                <div class="main-bar">
+                    <div class="container clearfix">
+
+                        <div class="logo-header">
+                            <div class="logo-header-inner logo-header-one">
+                                <a href="index.html">
+                                    <img src="images/logo.png" alt="" />
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- NAV Toggle Button -->
+                        <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button"
+                            class="navbar-toggler collapsed">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-first"></span>
+                            <span class="icon-bar icon-bar-two"></span>
+                            <span class="icon-bar icon-bar-three"></span>
+                        </button>
+
+                        <div class="extra-nav header-2-nav">
+                            <div class="extra-cell">
+                                <div class="header-search">
+                                    <a href="javascript:void(0);" class="header-search-icon"><i
+                                            class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="extra-cell">
+                                <div class="header-nav-request">
+                                    support@aroc.au
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- MAIN Vav -->
+                        <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
+
+                            <ul class=" nav navbar-nav">
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>
+                                    <a href="index.html#courses">Course</a>
+                                </li>
+                                <li><a href="index.html#about">About</a>
+
+                                <li><a href="contact.html">Contact</a>
+
+                                </li>
+
+
+
+
+                            </ul>
+
+                        </div>
+
+                        <!-- SITE Search -->
+                        <div id="search-toggle-block">
+                            <div id="search">
+                                <form role="search" id="searchform" action="" method="get" class="radius-xl">
+                                    <div class="input-group">
+                                        <input class="form-control" value="" name="q" type="search"
+                                            placeholder="Type to search" />
+                                        <span class="input-group-append"><button type="button" class="search-btn"
+                                                title="Search"><i class="fa fa-search"></i></button></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+        <!-- HEADER END -->
+
+        <!-- CONTENT START -->
+        <div class="page-content">
+
+            <!-- SUCCESS HERO SECTION -->
+            <div class="success-hero">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto text-center success-content">
+                            <div class="success-icon">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <h1 class="text-white font-weight-bold mb-4">Payment Successful!</h1>
+                            <p class="text-white-50 font-size-18 mb-0">Thank you for your purchase. Your order has been
+                                confirmed and you will receive detailed instructions via email shortly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORDER DETAILS SECTION -->
+            <div class="section-full p-t80 p-b50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 mx-auto">
+
+                            <!-- Loading Spinner -->
+                            <div class="loading-spinner" id="loadingSpinner">
+                                <div class="wt-icon-box-wraper center">
+                                    <div class="wt-icon-box-md">
+                                        <i class="fa fa-spinner fa-spin" style="font-size: 40px; color: #d72323;"></i>
+                                    </div>
+                                </div>
+                                <h4 class="m-t20">Loading your order details...</h4>
+                            </div>
+
+                            <!-- Error Message -->
+                            <div class="error-message" id="errorMessage">
+                                <strong>Error:</strong> Unable to load order details. Please contact support if this
+                                issue persists.
+                            </div>
+
+                            <!-- Order Details Card -->
+                            <div class="order-details-card" id="orderDetailsCard" style="display: none;">
+
+                                <!-- Order Header -->
+                                <div class="order-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <h2 class="m-b10">Order Details</h2>
+                                            <p class="m-b0">Order placed on <span id="orderDate"></span></p>
+                                        </div>
+                                        <div class="col-md-6 text-md-right">
+                                            <span class="order-id" id="orderId"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Package Information -->
+                                <div class="package-info">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h3 class="m-b10" id="packageTitle"></h3>
+                                            <p class="m-b20" id="packageDescription"></p>
+                                            <div class="m-b20">
+                                                <strong>Duration:</strong> <span id="packageDuration"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-md-right">
+                                            <div class="price-tag">
+                                                $<span id="packagePrice"></span>
+                                            </div>
+                                            <div class="m-t10">
+                                                <small class="text-muted">
+                                                    <del>$<span id="originalPrice"></span></del>
+                                                    <span class="text-success ml-2">Save $<span
+                                                            id="savings"></span></span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Package Features -->
+                                <div class="m-t30">
+                                    <h4 class="m-b20">What's Included:</h4>
+                                    <ul class="features-list" id="featuresList">
+                                        <!-- Features will be populated by JavaScript -->
+                                    </ul>
+                                </div>
+
+                                <!-- Customer Information -->
+                                <div class="customer-info m-t30">
+                                    <h4 class="m-b20">Customer Information</h4>
+                                    <div class="info-row">
+                                        <span class="info-label">Name:</span>
+                                        <span class="info-value" id="customerName"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Email:</span>
+                                        <span class="info-value" id="customerEmail"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Phone:</span>
+                                        <span class="info-value" id="customerPhone"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Address:</span>
+                                        <span class="info-value" id="customerAddress"></span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Country:</span>
+                                        <span class="info-value" id="customerCountry"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Next Steps -->
+                                <div class="next-steps">
+                                    <h4><i class="fa fa-info-circle"></i> What's Next?</h4>
+                                    <ul>
+                                        <li>Check your email for detailed instructions on how to get started</li>
+                                        <li>You'll receive login credentials for your training platform</li>
+                                        <li>Access your course materials and begin your AROC training journey</li>
+                                        <li>Our support team is available to help you throughout your training</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="text-center m-t40">
+                                    <a href="index.html" class="site-button btn-block radius-xl">
+                                        <i class="fa fa-home"></i> Return to Home
+                                    </a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- CONTENT END -->
+
+        <!-- FOOTER START -->
+        <footer class="site-footer footer-large footer-dark text-white footer-style1">
+
+
+            <!-- FOOTER BLOCKES START -->
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6">
+
+                            <div class="widget recent-posts-entry">
+                                <h3 class="widget-title">Get in Touch</h3>
+                                <ul class="widget_address">
+                                    <li><i class="fa fa-map-marker"></i>9/204 Alice St, Brisbane QLD 4000, Australia
+                                    </li>
+                                    <li><i class="fa fa-envelope"></i>hello@aroc.au</li>
+                                    <li> <i class="fa fa-phone"></i>123 456 7890</li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="widget widget_services">
+                                <h3 class="widget-title">Useful links</h3>
+                                <ul>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#courses">Courses</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="widget widget_newsletter">
+                                <h3 class="widget-title">Newsletter</h3>
+                                <p>Join our subscribers list to get the latest AROC training updates, course
+                                    announcements and aviation industry news delivered directly in your inbox.</p>
+                                <div class="newsletter-input">
+                                    <div class="input-group">
+                                        <input id="email" type="text" class="form-control" name="email"
+                                            placeholder="Enter your email">
+                                        <div class="input-group-append">
+                                            <button type="submit"
+                                                class="input-group-text nl-search-btn text-black site-bg-primary title-style-2">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- FOOTER COPYRIGHT -->
+
+            <div class="footer-middle">
+
+                <div class="container">
+                    <div class="footer-middle-content">
+                        <div class="logo-footer">
+                            <a href="index.html"><img src="images/logo.png" alt="AROC Training Australia"></a>
+                        </div>
+
+                        <ul class="copyrights-nav">
+                            <li><a href="javascript:void(0);">Terms & Condition</a></li>
+                            <li><a href="javascript:void(0);">Privacy Policy</a></li>
+                            <li><a href="contact-1.html">Contact Us</a></li>
+                        </ul>
+
+                        <ul class="social-icons  wt-social-links footer-social-icon">
+                            <li><a href="javascript:void(0);" class="fa fa-facebook"></a></li>
+                            <li><a href="javascript:void(0);" class="fa fa-twitter"></a></li>
+                            <li><a href="javascript:void(0);" class="fa fa-linkedin"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="wt-footer-bot-left d-flex justify-content-center">
+                        <span class="copyrights-text">© 2023 AROC Training Australia.
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+        <!-- FOOTER END -->
+
+
+
+        <!-- BUTTON TOP START -->
+        <button class="scroltop" title="Scroll to top"><span class="fa fa-angle-up  relative"
+                id="btn-vibrate"></span></button>
+
+    </div>
+
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+        <div class="loading-box"></div>
+        <div class="loading-pic">
+            <div class="cssload-loader"></div>
+        </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <!-- JAVASCRIPT  FILES ========================================= -->
+    <script src="js/jquery-2.2.0.min.js"></script><!-- JQUERY.MIN JS -->
+    <script src="js/popper.min.js"></script><!-- POPPER.MIN JS -->
+    <script src="js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+    <script src="js/bootstrap-select.min.js"></script><!-- Form js -->
+    <script src="js/magnific-popup.min.js"></script><!-- MAGNIFIC-POPUP JS -->
+    <script src="js/waypoints.min.js"></script><!-- WAYPOINTS JS -->
+    <script src="js/counterup.min.js"></script><!-- COUNTERUP JS -->
+    <script src="js/waypoints-sticky.min.js"></script><!-- STICKY HEADER -->
+    <script src="js/isotope.pkgd.min.js"></script><!-- MASONRY  -->
+    <script src="js/owl.carousel.min.js"></script><!-- OWL  SLIDER  -->
+    <script src="js/stellar.min.js"></script><!-- PARALLAX BG IMAGE   -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_8C7p0Ws2gUu7wo0b6pK9Qu7LuzX2iWY&amp;libraries=places&amp;"></script>
+    <!-- GOOGLE MAP -->
+    <script src="js/map.script.js"></script>
+    <script src="js/theia-sticky-sidebar.js"></script><!-- STICKY SIDEBAR  -->
+    <script src="js/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+    <script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+    <script src="js/jquery.bgscroll.js"></script><!-- BACKGROUND SCROLL -->
+    <script src="js/slick.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/switcher.js"></script><!-- SHORTCODE FUCTIONS  -->
+
+    <script>
+        $(document).ready(function () {
+            // Get order ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+
+            if (!orderId) {
+                showError('No order ID found in URL');
+                return;
+            }
+
+            // Show loading spinner
+            $('#loadingSpinner').show();
+            $('#orderDetailsCard').hide();
+            $('#errorMessage').hide();
+
+            // Fetch order details from API
+            fetchOrderDetails(orderId);
+        });
+
+        function fetchOrderDetails(orderId) {
+            $.ajax({
+                url: `https://student.aroc.au/api/orders/${orderId}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    $('#loadingSpinner').hide();
+                    if (response.order) {
+                        populateOrderDetails(response.order);
+                        $('#orderDetailsCard').show();
+                    } else {
+                        showError('Invalid order data received');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#loadingSpinner').hide();
+                    showError('Failed to load order details. Please try again later.');
+                    console.error('API Error:', error);
+                }
+            });
+        }
+
+        function populateOrderDetails(order) {
+            // Order header
+            $('#orderId').text(order.hash);
+            $('#orderDate').text(formatDate(order.created_at));
+
+            // Package information
+            $('#packageTitle').text(order.package.title);
+            $('#packageDescription').text(order.package.description);
+            $('#packageDuration').text(order.package.duration);
+            $('#packagePrice').text(order.package.price);
+            $('#originalPrice').text(order.package.original_price);
+            $('#savings').text(order.package.savings);
+
+            // Package features
+            const featuresList = $('#featuresList');
+            featuresList.empty();
+            order.package.features.forEach(feature => {
+                featuresList.append(`<li>${feature.feature}</li>`);
+            });
+
+            // Customer information
+            $('#customerName').text(`${order.first_name} ${order.last_name}`);
+            $('#customerEmail').text(order.email);
+            $('#customerPhone').text(order.phone);
+            $('#customerAddress').text(order.address);
+            $('#customerCountry').text(order.country);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function showError(message) {
+            $('#errorMessage').text(message).show();
+        }
+    </script>
+
+</body>
+
+</html>

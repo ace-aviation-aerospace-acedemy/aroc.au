@@ -310,6 +310,10 @@
                                     </div>
                                     <ul id="order-summary">
                                         <li id="course-name">Loading...</li>
+                                        <li id="original-price" style="display: none;"><b>Original Price </b><strong
+                                                id="original-price-amount">Loading...</strong></li>
+                                        <li id="discount-info" style="display: none;"><b>Discount</b><strong
+                                                id="discount-amount" style="color: #28a745;">Loading...</strong></li>
                                         <li><b>Course Total</b><strong id="course-price">Loading...</strong></li>
                                         <li><b>Total Amount</b><strong id="total-amount">Loading...</strong></li>
                                     </ul>
@@ -459,6 +463,7 @@
     <script src="js/jquery.bgscroll.js"></script><!-- BACKGROUND SCROLL -->
     <script src="js/slick.js"></script>
     <script src="js/jquery-ui.js"></script>
+    <script src="js/api-service.js"></script>
 
     <!-- Checkout Script -->
     <script>
@@ -469,43 +474,188 @@
         }
 
         // Update order summary
-        function updateOrderSummary() {
-            const packageName = getQueryParam('name') || 'Standard AROC';
-            const price = getQueryParam('price') || '495';
+        async function updateOrderSummary() {
+            const pkgId = getQueryParam('package') || 1;
+            const pkg = await window.arocAPI.getPackageById(pkgId);
 
-            document.getElementById('course-name').innerHTML = packageName + ' <strong>$' + price + '</strong>';
-            document.getElementById('course-price').innerHTML = '$' + price;
-            document.getElementById('total-amount').innerHTML = '$' + price;
+            if (!pkg) {
+                document.getElementById('course-name').innerHTML = 'Package Not Found';
+                document.getElementById('course-price').innerHTML = '-';
+                document.getElementById('total-amount').innerHTML = '-';
+                return;
+            }
+
+            // Format price display using the API service
+            const priceInfo = window.arocAPI.formatPriceDisplay(pkg);
+
+            // Update course name
+            document.getElementById('course-name').innerHTML = pkg.title + ' <strong>' + priceInfo.currentPrice + '</strong>';
+
+            // Show/hide original price and discount if there's a discount
+            const originalPriceElement = document.getElementById('original-price');
+            const discountInfoElement = document.getElementById('discount-info');
+
+            if (priceInfo.hasDiscount) {
+                // Show original price and discount
+                document.getElementById('original-price-amount').innerHTML = priceInfo.originalPrice;
+                document.getElementById('discount-amount').innerHTML = '-' + priceInfo.savings.replace('save ', '');
+                originalPriceElement.style.display = 'block';
+                discountInfoElement.style.display = 'block';
+
+                // Add strikethrough to original price
+                document.getElementById('original-price-amount').style.textDecoration = 'line-through';
+                document.getElementById('original-price-amount').style.color = '#6c757d';
+            } else {
+                // Hide original price and discount
+                originalPriceElement.style.display = 'none';
+                discountInfoElement.style.display = 'none';
+            }
+
+            // Update course total and total amount (both show the final discounted price)
+            document.getElementById('course-price').innerHTML = priceInfo.currentPrice;
+            document.getElementById('total-amount').innerHTML = priceInfo.currentPrice;
         }
 
         // Place order function
-        function placeOrder() {
+        async function placeOrder() {
             // Get form data
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const country = document.getElementById('country').value;
+            const state = document.getElementById('state').value;
+            const postCode = document.getElementById('postCode').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const pkgId = getQueryParam('package') || 1;
 
-            // Basic validation
-            if (!firstName || !lastName || !email || !phone) {
-                alert('Please fill in all required fields: First Name, Last Name, Email, and Phone.');
+            // Detailed validation with specific error messages
+            const validationErrors = [];
+
+            if (!firstName) {
+                validationErrors.push('First Name is required');
+            }
+
+            if (!lastName) {
+                validationErrors.push('Last Name is required');
+            }
+
+            if (!email) {
+                validationErrors.push('Email Address is required');
+            } else {
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    validationErrors.push('Please enter a valid email address');
+                }
+            }
+
+            if (!phone) {
+                validationErrors.push('Phone Number is required');
+            } else {
+                // Phone validation (basic)
+                if (phone.length < 10) {
+                    validationErrors.push('Please enter a valid phone number (minimum 10 digits)');
+                }
+            }
+
+            // If there are validation errors, show them and stop
+            if (validationErrors.length > 0) {
+                alert('Please fix the following errors:\n\n' + validationErrors.join('\n'));
                 return;
             }
 
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
+            // Show loading state
+            const placeOrderBtn = document.querySelector('button[onclick="placeOrder()"]');
+            const originalBtnText = placeOrderBtn.innerHTML;
+            placeOrderBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+            placeOrderBtn.disabled = true;
 
-            // Redirect to payment page
-            window.location.href = 'http://aaa.edu.au/pay';
+            try {
+                // Prepare the payload
+                const payload = {
+                    package_id: parseInt(pkgId),
+                    first_name: firstName,
+                    last_name: lastName,
+                    company_name: companyName || null,
+                    phone: phone,
+                    email: email,
+                    country: country || null,
+                    state: state || null,
+                    zip: postCode || null,
+                    address: address || null
+                };
+
+                // Make API request to checkout
+                const response = await fetch('https://student.aroc.au/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Check if we have payment details and redirect URL
+                if (data.payment_details && data.payment_details.stripe_session_url) {
+                    // Redirect to Stripe checkout
+                    window.location.href = data.payment_details.stripe_session_url;
+                } else {
+                    throw new Error('No payment session URL received from server');
+                }
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+
+                // Show error message to user
+                alert('Checkout failed: ' + error.message);
+
+                // Reset button state
+                placeOrderBtn.innerHTML = originalBtnText;
+                placeOrderBtn.disabled = false;
+            }
         }
 
-        // Initialize page
+        // Add form validation on input
+        function validateForm() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            const placeOrderBtn = document.querySelector('button[onclick="placeOrder()"]');
+
+            if (firstName && lastName && email && phone) {
+                placeOrderBtn.disabled = false;
+            } else {
+                placeOrderBtn.disabled = true;
+            }
+        }
+
+        // Add event listeners for real-time validation
         document.addEventListener('DOMContentLoaded', function () {
             updateOrderSummary();
+
+            // Add input event listeners for real-time validation
+            const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('input', validateForm);
+                    field.addEventListener('blur', validateForm);
+                }
+            });
+
+            // Initial validation
+            validateForm();
         });
     </script>
 </body>

@@ -134,12 +134,12 @@
                         <!-- SITE Search -->
                         <div id="search-toggle-block">
                             <div id="search">
-                                <form role="search" id="searchform" action="" method="get" class="radius-xl">
+                                <form role="search" id="searchform" action="#" method="get" class="radius-xl">
                                     <div class="input-group">
                                         <input class="form-control" value="" name="q" type="search"
                                             placeholder="Type to search" />
-                                        <span class="input-group-append"><button type="button" class="search-btn"><i
-                                                    class="fa fa-search"></i></button></span>
+                                        <span class="input-group-append"><button type="button" class="search-btn"
+                                                title="Search"><i class="fa fa-search"></i></button></span>
                                     </div>
                                 </form>
                             </div>
@@ -259,31 +259,34 @@
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 m-b30">
-                                    <form class="cons-contact-form" method="post" action="#">
+                                    <form id="contactForm" class="cons-contact-form" method="post" action="#">
                                         <!-- TITLE START -->
                                         <div class="section-head left wt-small-separator-outer">
                                             <h3>Get In Touch</h3>
                                         </div>
                                         <!-- TITLE END -->
 
+                                        <!-- Alert Messages -->
+                                        <div id="contactAlert" class="alert" style="display: none;"></div>
+
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input name="username" type="text" required class="form-control"
+                                                    <input name="name" type="text" required class="form-control"
                                                         placeholder="Name">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input name="email" type="text" class="form-control" required
+                                                    <input name="email" type="email" class="form-control" required
                                                         placeholder="Email">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input name="phone" type="text" class="form-control" required
+                                                    <input name="phone" type="tel" class="form-control" required
                                                         placeholder="Phone">
                                                 </div>
                                             </div>
@@ -297,14 +300,19 @@
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea name="message" class="form-control" rows="4"
+                                                    <textarea name="message" class="form-control" rows="4" required
                                                         placeholder="Message"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
-                                                <button type="submit" class="site-button site-btn-effect">Submit
-                                                    Now</button>
+                                                <button type="submit" class="site-button site-btn-effect"
+                                                    id="submitBtn">
+                                                    <span id="submitText">Submit Now</span>
+                                                    <span id="submitSpinner" style="display: none;">
+                                                        <i class="fa fa-spinner fa-spin"></i> Sending...
+                                                    </span>
+                                                </button>
                                             </div>
 
                                         </div>
@@ -418,7 +426,8 @@
 
 
         <!-- BUTTON TOP START -->
-        <button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>
+        <button class="scroltop" title="Scroll to top"><span class="fa fa-angle-up  relative"
+                id="btn-vibrate"></span></button>
 
     </div>
 
@@ -455,10 +464,83 @@
     <script src="js/jquery-ui.js"></script>
     <script src="js/switcher.js"></script><!-- SHORTCODE FUCTIONS  -->
 
+    <!-- Contact Form JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const contactAlert = document.getElementById('contactAlert');
 
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
 
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.style.display = 'none';
+                submitSpinner.style.display = 'inline';
 
+                // Hide any previous alerts
+                contactAlert.style.display = 'none';
+                contactAlert.className = 'alert';
 
+                // Get form data
+                const formData = new FormData(contactForm);
+                const contactData = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                };
+
+                // Make API request
+                fetch('https://student.aroc.au/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(contactData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Show success message
+                        contactAlert.className = 'alert alert-success';
+                        contactAlert.innerHTML = '<i class="fa fa-check-circle"></i> ' + (data.message || 'Contact submitted successfully.');
+                        contactAlert.style.display = 'block';
+
+                        // Reset form
+                        contactForm.reset();
+
+                        // Scroll to alert
+                        contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+
+                        // Show error message
+                        contactAlert.className = 'alert alert-danger';
+                        contactAlert.innerHTML = '<i class="fa fa-exclamation-circle"></i> Sorry, there was an error submitting your message. Please try again.';
+                        contactAlert.style.display = 'block';
+
+                        // Scroll to alert
+                        contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitText.style.display = 'inline';
+                        submitSpinner.style.display = 'none';
+                    });
+            });
+        });
+    </script>
 
 </body>
 

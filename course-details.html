@@ -412,88 +412,47 @@
     <script src="js/switcher.js"></script><!-- SWITCHER FUCTIONS  -->
 
     <!-- Dynamic Package Info Script -->
+    <script src="js/api-service.js"></script>
     <script>
-        // Define package data
-        const packages = {
-            standard: {
-                name: "Standard AROC",
-                price: "$495",
-                priceValue: 495,
-                description: "Perfect for Beginners<br>Complete in 2 Days",
-                features: [
-                    "✓ AROC + ELP Assessment",
-                    "✓ 1-Year Simulator Access",
-                    "✓ CASA Fee Included",
-                    "✓ Digital Certificate",
-                    "✓ Study Materials Included",
-                    "✓ Expert Instructor Support"
-                ],
-                note: "Best for new pilots and drone operators."
-            },
-            express: {
-                name: "Express AROC",
-                price: "$595",
-                priceValue: 595,
-                description: "Most Popular Choice<br>Complete in 2 Days",
-                features: [
-                    "✓ XPRESS AROC + ELP",
-                    "✓ 3-Year Simulator Access",
-                    "✓ Priority Scheduling",
-                    "✓ FREE Refresher Training",
-                    "✓ Express Certification",
-                    "✓ 24/7 Support Access"
-                ],
-                note: "Fast-track your certification with priority support."
-            },
-            advanced: {
-                name: "Advanced AROC",
-                price: "$795",
-                priceValue: 795,
-                description: "Complete Professional Package<br>Complete in 2 Days",
-                features: [
-                    "✓ AROC + ELP + Skill Certificate",
-                    "✓ 5-Year Simulator Access",
-                    "✓ One-on-One Mentoring",
-                    "✓ Lifetime Refresher Access",
-                    "✓ Career Support Package",
-                    "✓ Premium Certification"
-                ],
-                note: "For professionals seeking the most comprehensive training."
-            }
-        };
-
-        // Get package from query string
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        function renderPackageInfo() {
-            const pkgKey = getQueryParam('package') || 'standard';
-            const pkg = packages[pkgKey.toLowerCase()] || packages['standard'];
+        async function renderPackageInfo() {
+            const pkgId = getQueryParam('package') || 1;
+            const pkg = await window.arocAPI.getPackageById(pkgId);
 
-            document.getElementById('package-title').innerHTML = pkg.name;
-            document.getElementById('package-price').innerHTML = pkg.price;
-            document.getElementById('package-description').innerHTML = pkg.description;
-            document.getElementById('buy-btn').innerHTML = `Buy ${pkg.name}`;
-            document.getElementById('package-note').innerHTML = pkg.note;
+            if (!pkg) {
+                document.getElementById('package-title').innerHTML = 'Package Not Found';
+                document.getElementById('package-price').innerHTML = '';
+                document.getElementById('package-description').innerHTML = '';
+                document.getElementById('buy-btn').innerHTML = '';
+                document.getElementById('package-note').innerHTML = '';
+                document.getElementById('package-features').innerHTML = '';
+                return;
+            }
 
-            // Features
+            const priceInfo = window.arocAPI.formatPriceDisplay(pkg);
+            const features = window.arocAPI.formatFeatures(pkg.features);
+
+            document.getElementById('package-title').innerHTML = pkg.title;
+            document.getElementById('package-price').innerHTML = priceInfo.currentPrice;
+            document.getElementById('package-description').innerHTML = pkg.description + (pkg.duration ? `<br>Complete in ${pkg.duration}` : '');
+            document.getElementById('buy-btn').innerHTML = `Buy ${pkg.title}`;
+            document.getElementById('package-note').innerHTML = pkg.popular ? 'Most Popular Choice' : '';
             const featuresList = document.getElementById('package-features');
             featuresList.innerHTML = '';
-            pkg.features.forEach(f => {
+            features.forEach(f => {
                 const li = document.createElement('li');
                 li.innerHTML = f;
                 featuresList.appendChild(li);
             });
-        }
 
-        function redirectToCheckout() {
-            const pkgKey = getQueryParam('package') || 'standard';
-            const pkg = packages[pkgKey.toLowerCase()] || packages['standard'];
-
-            // Redirect to checkout with package information
-            window.location.href = `checkout.html?package=${pkgKey}&name=${encodeURIComponent(pkg.name)}&price=${pkg.priceValue}`;
+            // Update buy button to redirect with correct params
+            document.getElementById('buy-btn').onclick = function() {
+                window.location.href = `checkout.html?package=${pkg.id}&name=${encodeURIComponent(pkg.title)}&price=${pkg.price}`;
+            };
         }
 
         document.addEventListener('DOMContentLoaded', renderPackageInfo);
