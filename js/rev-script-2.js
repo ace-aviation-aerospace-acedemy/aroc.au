@@ -11,7 +11,7 @@ tpj(document).ready(function() {
 			jsFileLocation:"//server.local/revslider/wp-content/plugins/revslider/public/assets/js/",
 			sliderLayout:"fullscreen",
 			dottedOverlay:"none",
-			delay:5000,
+			delay:15000,
 			navigation: {
 				keyboardNavigation:"off",
 				keyboard_direction: "horizontal",
