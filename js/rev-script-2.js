@@ -73,7 +73,7 @@ tpj(document).ready(function() {
 			responsiveLevels:[1240,1024,778,480],
 			visibilityLevels:[1240,1024,778,480],
 			gridwidth:[1240,1024,778,480],
-			gridheight:[840,700,700,700],
+			gridheight:[840,700,600,500],
 			lazyType:"single",
 			parallax: {
 				type:"scroll",
