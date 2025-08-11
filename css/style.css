@@ -185,6 +185,13 @@ table {
   }
 }
 
+@media (min-width: 1024px) {
+  .adjust-desktop-padding {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
 /*======================================
 2. HEADING & TITLE 
 ======================================*/
