@@ -48,6 +48,7 @@
     <link rel="stylesheet" class="skin" type="text/css" href="css/skin/skin-1.css">
     <!-- SIDE SWITCHER STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href="css/switcher.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 
 
 
@@ -143,8 +144,8 @@
                                     <div class="input-group">
                                         <input class="form-control" value="" name="q" type="search"
                                             placeholder="Type to search" />
-                                        <span class="input-group-append"><button type="button" class="search-btn"><i
-                                                    class="fa fa-search"></i></button></span>
+                                        <span class="input-group-append"><button type="button" class="search-btn"
+                                                title="Search"><i class="fa fa-search"></i></button></span>
                                     </div>
                                 </form>
                             </div>
@@ -164,7 +165,7 @@
 
 
             <!-- SLIDER START -->
-            <div class="slider-outer">
+            <div class="slider-outer" style="position: relative;">
 
                 <div id="welcome_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="goodnews-header"
                     data-source="gallery" style="background:#eeeeee;padding:0px;">
@@ -237,7 +238,7 @@
 
 
                                 <!-- LAYER NR. 5 [ for button ] -->
-                                <div class="tp-caption   tp-resizeme" id="slide-901-layer-4"
+                                <!-- <div class="tp-caption   tp-resizeme" id="slide-901-layer-4"
                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
                                     data-y="['top','top','top','top']" data-voffset="['520','440','540','540']"
                                     data-width="['auto','auto','auto','auto']"
@@ -267,7 +268,7 @@
                                             <i class="fa fa-arrow-right m-r10"></i>Learn More
                                         </a>
                                     </div>
-                                </div>
+                                </div> -->
 
 
 
@@ -279,8 +280,71 @@
                     </div>
                 </div>
 
+                <!-- CONTACT BOX -->
+                <div class="contact-overlay-box">
+                    <div class="contact-box-container">
+                        <div class="contact-box">
+                            <div class="contact-box-header">
+                                <h3>Have questions? Fill in your details below and we'll get right back to you.</h3>
+                            </div>
+
+                            <!-- Alert Messages for Contact Box -->
+                            <div id="quickContactAlert" class="alert" style="display: none; margin-bottom: 20px;"></div>
+
+                            <form class="contact-box-form" id="quickContactForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" name="firstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="lastName" placeholder="Last Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="tel" name="phone" placeholder="Phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" name="date" placeholder="dd/mm/yyyy" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="callbackTime" required
+                                            title="Select your preferred callback time">
+                                            <option value="">Callback Time</option>
+                                            <option value="morning">Morning (9AM-12PM)</option>
+                                            <option value="afternoon">Afternoon (12PM-3PM)</option>
+                                            <option value="evening">Evening (3PM-6PM)</option>
+                                            <option value="anytime">Anytime</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-submit">
+                                    <button type="submit" class="submit-btn" id="quickSubmitBtn">
+                                        <span id="quickSubmitText">Submit</span>
+                                        <span id="quickSubmitSpinner" style="display: none;">
+                                            <i class="fa fa-spinner fa-spin"></i> Sending...
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div class="contact-alternative">
+                                <p>Or call us on <a href="tel:611300336366">(+61) 1300 336 366</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTACT BOX -->
             </div>
             <!-- SLIDER END -->
+
+
+
 
 
 
@@ -689,7 +753,7 @@
 
                                         <div class="d-icon-box-content">
                                             <p>We specialise in delivering corporate and group training, bringing our
-                                                expertise directly to your workplace.</p>
+                                                expertise directly to your workplace.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -741,7 +805,7 @@
                                             <p>
                                                 Course designed to be completed at your convenience. Ether classroom or
                                                 learning online, we got your covered. We have campuses in all major
-                                                cities for you to attend.
+                                                cities for you to attend.
                                             </p>
                                         </div>
 
@@ -762,8 +826,8 @@
 
                                         <div class="d-icon-box-content">
                                             <p>Studying with us means, you are able to call us anytime to book a
-                                                refreshers training even after you’ve finished the course! Its always
-                                                good to keep up on top of things and stay update to date.</p>
+                                                refreshers training even after you've finished the course! Its always
+                                                good to keep up on top of things and stay update to date.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -783,7 +847,7 @@
                                         <div class="d-icon-box-content">
                                             <p>We can offer your organisation access to a $100,000 line of credit,
                                                 providing flexibility to manage training costs. This allows you to
-                                                invest in staff development now and spread payments over time.</p>
+                                                invest in staff development now and spread payments over time.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1047,7 +1111,7 @@
                                                 <div class="testimonial-content">
                                                     <div class="testimonial-text">
                                                         <i class="fa fa-quote-left"></i>
-                                                        <p>I chose Ace aviation as I’ve heard many great reviews, the
+                                                        <p>I chose Ace aviation as I've heard many great reviews, the
                                                             friendly members did not disappoint as helped me me get to
                                                             where I want to be. Thank ti for your support and highly
                                                             recommend.</p>
@@ -1142,7 +1206,7 @@
                                                     <div class="testimonial-text">
                                                         <i class="fa fa-quote-left"></i>
                                                         <p>Thanks again ace aviation for helping me get my license to
-                                                            fly my Drone, I couldn’t have done it without your help and
+                                                            fly my Drone, I couldn't have done it without your help and
                                                             support. I would highly recommend this company to get your
                                                             Drone license and other accreditation's.
                                                             Thanks again guys 😊</p>
@@ -1518,11 +1582,13 @@
 
 
         <!-- BUTTON TOP START -->
-        <button class="scroltop"><span class="fa fa-angle-up  relative" id="btn-vibrate"></span></button>
+        <button class="scroltop" title="Scroll to top"><span class="fa fa-angle-up  relative"
+                id="btn-vibrate"></span></button>
 
         <!-- FLOATING WHATSAPP BUTTON START -->
         <div class="floating-whatsapp">
-            <a href="https://wa.me/61468682525" target="_blank" class="whatsapp-btn" title="Chat with us on WhatsApp">
+            <a href="https://wa.me/61468682525" target="_blank" rel="noopener" class="whatsapp-btn"
+                title="Chat with us on WhatsApp">
                 <i class="fa fa-whatsapp"></i>
             </a>
         </div>
@@ -1574,69 +1640,7 @@
     <script src="js/api-service.js"></script>
 
     <!-- FLOATING WHATSAPP STYLES -->
-    <style>
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 9999;
-            animation: whatsapp-pulse 2s infinite;
-        }
 
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: white;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s ease;
-            font-size: 28px;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
-            color: white;
-            text-decoration: none;
-        }
-
-        .whatsapp-btn:active {
-            transform: scale(0.95);
-        }
-
-        @keyframes whatsapp-pulse {
-            0% {
-                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.8), 0 0 0 10px rgba(37, 211, 102, 0.1);
-            }
-
-            100% {
-                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .floating-whatsapp {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .whatsapp-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
-        }
-    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function () {
@@ -1695,72 +1699,160 @@
             const submitSpinner = document.getElementById('submitSpinner');
             const contactAlert = document.getElementById('contactAlert');
 
-            contactForm.addEventListener('submit', function (e) {
-                e.preventDefault();
+            // Quick Contact Box Form JavaScript
+            const quickContactForm = document.getElementById('quickContactForm');
+            const quickSubmitBtn = document.getElementById('quickSubmitBtn');
+            const quickSubmitText = document.getElementById('quickSubmitText');
+            const quickSubmitSpinner = document.getElementById('quickSubmitSpinner');
+            const quickContactAlert = document.getElementById('quickContactAlert');
 
-                // Show loading state
-                submitBtn.disabled = true;
-                submitText.style.display = 'none';
-                submitSpinner.style.display = 'inline';
+            // Handle Quick Contact Form Submission
+            if (quickContactForm) {
+                quickContactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
 
-                // Hide any previous alerts
-                contactAlert.style.display = 'none';
-                contactAlert.className = 'alert';
+                    // Show loading state
+                    quickSubmitBtn.disabled = true;
+                    quickSubmitText.style.display = 'none';
+                    quickSubmitSpinner.style.display = 'inline';
 
-                // Get form data
-                const formData = new FormData(contactForm);
-                const contactData = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone'),
-                    subject: formData.get('subject'),
-                    message: formData.get('message')
-                };
+                    // Hide any previous alerts
+                    quickContactAlert.style.display = 'none';
+                    quickContactAlert.className = 'alert';
 
-                // Make API request
-                fetch('https://student.aroc.au/api/contacts', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(contactData)
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
+                    // Get form data
+                    const formData = new FormData(quickContactForm);
+                    const firstName = formData.get('firstName');
+                    const lastName = formData.get('lastName');
+                    const fullName = `${firstName} ${lastName}`.trim();
+
+                    const contactData = {
+                        name: fullName,
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        subject: 'Callback Request - AROC Training',
+                        message: `Callback requested for ${fullName} on ${formData.get('date')} during ${formData.get('callbackTime')} time slot.`,
+                        callback_date: formData.get('date'),
+                        callback_time: formData.get('callbackTime')
+                    };
+
+                    // Make API request
+                    fetch('https://student.aroc.au/api/contacts', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(contactData)
                     })
-                    .then(data => {
-                        // Show success message
-                        contactAlert.className = 'alert alert-success';
-                        contactAlert.innerHTML = '<i class="fa fa-check-circle"></i> ' + (data.message || 'Contact submitted successfully.');
-                        contactAlert.style.display = 'block';
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Show success message
+                            quickContactAlert.className = 'alert alert-success';
+                            quickContactAlert.innerHTML = '<i class="fa fa-check-circle"></i> ' + (data.message || 'Thank you! We\'ll call you back at your preferred time.');
+                            quickContactAlert.style.display = 'block';
 
-                        // Reset form
-                        contactForm.reset();
+                            // Reset form
+                            quickContactForm.reset();
 
-                        // Scroll to alert
-                        contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Scroll to alert
+                            quickContactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+
+                            // Show error message
+                            quickContactAlert.className = 'alert alert-danger';
+                            quickContactAlert.innerHTML = '<i class="fa fa-exclamation-circle"></i> Sorry, there was an error submitting your request. Please try again.';
+                            quickContactAlert.style.display = 'block';
+
+                            // Scroll to alert
+                            quickContactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        })
+                        .finally(() => {
+                            // Reset button state
+                            quickSubmitBtn.disabled = false;
+                            quickSubmitText.style.display = 'inline';
+                            quickSubmitSpinner.style.display = 'none';
+                        });
+                });
+            }
+
+            // Handle Main Contact Form Submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitText.style.display = 'none';
+                    submitSpinner.style.display = 'inline';
+
+                    // Hide any previous alerts
+                    contactAlert.style.display = 'none';
+                    contactAlert.className = 'alert';
+
+                    // Get form data
+                    const formData = new FormData(contactForm);
+                    const contactData = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        subject: formData.get('subject'),
+                        message: formData.get('message'),
+                        callback_date: null,
+                        callback_time: null
+                    };
+
+                    // Make API request
+                    fetch('https://student.aroc.au/api/contacts', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(contactData)
                     })
-                    .catch(error => {
-                        console.error('Error:', error);
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Show success message
+                            contactAlert.className = 'alert alert-success';
+                            contactAlert.innerHTML = '<i class="fa fa-check-circle"></i> ' + (data.message || 'Contact submitted successfully.');
+                            contactAlert.style.display = 'block';
 
-                        // Show error message
-                        contactAlert.className = 'alert alert-danger';
-                        contactAlert.innerHTML = '<i class="fa fa-exclamation-circle"></i> Sorry, there was an error submitting your message. Please try again.';
-                        contactAlert.style.display = 'block';
+                            // Reset form
+                            contactForm.reset();
 
-                        // Scroll to alert
-                        contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        submitText.style.display = 'inline';
-                        submitSpinner.style.display = 'none';
-                    });
-            });
+                            // Scroll to alert
+                            contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+
+                            // Show error message
+                            contactAlert.className = 'alert alert-danger';
+                            contactAlert.innerHTML = '<i class="fa fa-exclamation-circle"></i> Sorry, there was an error submitting your message. Please try again.';
+                            contactAlert.style.display = 'block';
+
+                            // Scroll to alert
+                            contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        })
+                        .finally(() => {
+                            // Reset button state
+                            submitBtn.disabled = false;
+                            submitText.style.display = 'inline';
+                            submitSpinner.style.display = 'none';
+                        });
+                });
+            }
         });
     </script>
 
