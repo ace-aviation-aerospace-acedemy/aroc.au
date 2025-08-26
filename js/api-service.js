@@ -20,14 +20,15 @@ class AROCAPIService {
   }
 
   // Fetch single package by ID
-  async getPackageById(id) {
+  async getPackageById(id, params = {}) {
     try {
-      const response = await fetch(`${this.baseURL}/packages/${id}`);
+      const query = new URLSearchParams(params).toString();
+      const response = await fetch(`${this.baseURL}/packages/${id}?${query}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      return data.pkg || data.package || null; // Accept both keys
+      return { ...data.package, user: data.user }; // Accept both keys
     } catch (error) {
       console.error("Error fetching package:", error);
       return null;

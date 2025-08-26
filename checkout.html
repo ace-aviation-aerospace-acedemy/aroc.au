@@ -484,7 +484,10 @@
         // Update order summary
         async function updateOrderSummary() {
             const pkgId = getQueryParam('package') || 1;
-            const pkg = await window.arocAPI.getPackageById(pkgId);
+            const pkg = await window.arocAPI.getPackageById(pkgId, {
+                user: getQueryParam('user') ?? null,
+                action: getQueryParam('action') ?? null
+            });
 
             if (!pkg) {
                 document.getElementById('course-name').innerHTML = 'Package Not Found';
@@ -522,6 +525,27 @@
             // Update course total and total amount (both show the final discounted price)
             document.getElementById('course-price').innerHTML = priceInfo.currentPrice;
             document.getElementById('total-amount').innerHTML = priceInfo.currentPrice;
+
+            // disabled
+            function setInputValue(id, value) {
+                const input = document.getElementById(id);
+                if (!input) return;
+
+                input.value = value;
+                input.disabled = true; // disable the field
+
+                // Dispatch events so listeners pick it up
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            if (pkg.user) {
+                setInputValue('firstName', pkg.user.name.split(' ')[0] ?? '');
+                setInputValue('lastName', pkg.user.name.split(' ')[1] ?? '');
+                setInputValue('email', pkg.user.email);
+                setInputValue('phone', pkg.user.profile.phone_number ?? '');
+            }
+
         }
 
         // Place order function
@@ -540,6 +564,7 @@
 
             // Detailed validation with specific error messages
             const validationErrors = [];
+            console.log(email, phone, firstName, lastName, companyName, country, state, postCode, address);
 
             if (!firstName) {
                 validationErrors.push('First Name is required');
@@ -592,7 +617,9 @@
                     country: country || null,
                     state: state || null,
                     zip: postCode || null,
-                    address: address || null
+                    address: address || null,
+                    user: getQueryParam('user') ?? null,
+                    action: getQueryParam('action') ?? null
                 };
 
                 // Make API request to checkout
